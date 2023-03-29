@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const shortForm = document.querySelector("#short-form").value;
 
         try {
-            const response = await fetch(`/generate-content?type=${selectedType}&longForm=${encodeURIComponent(longForm)}&shortForm=${encodeURIComponent(shortForm)}`);
+            // Replace the URL with the Heroku URL where your server-side code is hosted
+            const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?type=${selectedType}&longForm=${encodeURIComponent(longForm)}&shortForm=${encodeURIComponent(shortForm)}`);
 
             const data = await response.json();
             if (data && data.choices && data.choices.length > 0) {
