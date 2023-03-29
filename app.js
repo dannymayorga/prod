@@ -17,7 +17,6 @@ app.get("/generate-content", async (req, res) => {
   const { type, longForm, shortForm } = req.query;
   const apiKey = process.env.CHATGPT_API_KEY;
 
-  // Define a prompt based on the selected type
   let prompt = "";
   switch (type) {
     case "epic":
@@ -37,7 +36,7 @@ app.get("/generate-content", async (req, res) => {
     const nodeFetch = await import('node-fetch');
     const fetch = nodeFetch.default;
 
-    const response = await fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
+    const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", { // Change model name here
       method: "POST",
       headers: {
         "Content-Type": "application/json",
