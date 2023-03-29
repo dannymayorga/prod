@@ -53,10 +53,6 @@ app.get("/generate-content", async (req, res) => {
     });
 
     const data = await response.json();
-
-    // Log the response data from the ChatGPT API
-    console.log('ChatGPT API response data:', data);
-
     res.json(data);
   } catch (error) {
     console.error("Error fetching ChatGPT:", error);
