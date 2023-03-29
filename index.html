@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Content Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Content Generator</h1>
+        <div class="pill-container">
+            <button class="pill" data-type="epic">Epic</button>
+            <button class="pill" data-type="feature">Feature</button>
+            <button class="pill" data-type="user-stories">User Stories</button>
+        </div>
+        <div class="form-container">
+            <label for="long-form">Long Form:</label>
+            <textarea id="long-form"></textarea>
+            <label for="short-form">Short Form:</label>
+            <textarea id="short-form"></textarea>
+            <button id="submit">Generate Content</button>
+        </div>
+        <div class="output-container">
+            <h2>AI Generated Content:</h2>
+            <div id="ai-generated-content"></div>
+            <button id="download">Download</button>
+            <button id="delete">Delete</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
