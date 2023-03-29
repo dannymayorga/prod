@@ -1,0 +1,45 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.pill-container {
+    margin: 10px 0;
+}
+
+.pill {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.pill.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.form-container {
+    margin: 20px 0;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.output-container {
+    margin: 20px 0;
+}
+
+#ai-generated-content {
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 100px;
+}
