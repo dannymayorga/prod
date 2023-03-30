@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const role = document.querySelector("#role").value;
         const title = document.querySelector(`#${selectedType}-title`).value;
-        const description = document.querySelector(`#${selectedType}-description`).value; // Corrected line
+        const description = document.querySelector(`#${selectedType}-description`).value; // Corrected ID
 
         try {
             const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?type=${selectedType}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`);
