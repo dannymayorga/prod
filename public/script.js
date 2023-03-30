@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     submitBtn.addEventListener("click", async function (event) {
         event.preventDefault();
+        // Show the spinner
+        document.querySelector("#spinner-container").style.display = "block";
         if (!selectedType) {
             handleError("Please select a content type (Epic, Feature, User Stories).");
             return;
@@ -44,6 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 handleError("Error: Unable to generate content.");
             }
+            // Hide the spinner after the response is received
+            document.querySelector("#spinner-container").style.display = "none";
         } catch (error) {
             handleError("Error fetching ChatGPT:", error);
         }
