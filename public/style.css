@@ -43,3 +43,15 @@ textarea {
     padding: 10px;
     min-height: 100px;
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 767px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .pill {
+        display: block;
+        margin-bottom: 5px;
+    }
+}

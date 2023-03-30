@@ -15,10 +15,40 @@
             <button class="pill" data-type="user-stories">User Stories</button>
         </div>
         <div class="form-container">
-            <label for="long-form">Long Form:</label>
-            <textarea id="long-form"></textarea>
-            <label for="short-form">Short Form:</label>
-            <textarea id="short-form"></textarea>
+            <!-- Drop-down for specific roles -->
+            <label for="role">Role:</label>
+            <select id="role">
+                <option value="" disabled selected>Select your role</option>
+                <option value="Product Manager">Product Manager</option>
+                <option value="Product Owner">Product Owner</option>
+                <option value="Business Analyst">Business Analyst</option>
+                <!-- Additional roles can be added here -->
+            </select>
+
+            <!-- Fields specific to Epic -->
+            <div class="form-fields" id="epic-fields" style="display:none;">
+                <label for="epic-title">Epic Title:</label>
+                <input type="text" id="epic-title" placeholder="Epic title">
+                <label for="epic-description">Description:</label>
+                <textarea id="epic-description" placeholder="Provide a detailed description"></textarea>
+            </div>
+
+            <!-- Fields specific to Feature -->
+            <div class="form-fields" id="feature-fields" style="display:none;">
+                <label for="feature-title">Feature Title:</label>
+                <input type="text" id="feature-title" placeholder="Feature title">
+                <label for="feature-description">Description:</label>
+                <textarea id="feature-description" placeholder="Provide a detailed description"></textarea>
+            </div>
+
+            <!-- Fields specific to User Stories -->
+            <div class="form-fields" id="user-stories-fields" style="display:none;">
+                <label for="user-story-title">User Story Title:</label>
+                <input type="text" id="user-story-title" placeholder="User story title">
+                <label for="user-story-description">Description:</label>
+                <textarea id="user-story-description" placeholder="Provide a detailed description"></textarea>
+            </div>
+
             <button id="submit">Generate Content</button>
         </div>
         <div class="output-container">
@@ -27,6 +57,8 @@
             <button id="download">Download</button>
             <button id="delete">Delete</button>
         </div>
+        <!-- Error container to display error messages to the user -->
+        <div id="error-container" class="error-container"></div>
     </div>
     <script src="script.js"></script>
 </body>

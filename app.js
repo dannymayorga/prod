@@ -14,19 +14,20 @@ app.get("/", (req, res) => {
 });
 
 app.get("/generate-content", async (req, res) => {
-  const { type, longForm, shortForm } = req.query;
+  // Extract the values of the new fields from the request query parameters
+  const { type, role, title, description } = req.query;
   const apiKey = process.env.CHATGPT_API_KEY;
 
   let prompt = "";
   switch (type) {
     case "epic":
-      prompt = `Generate an Epic:\nLong Form: ${longForm}\n\nShort Form: ${shortForm}\n\n`;
+      prompt = `As a ${role}, I want to create an Epic with the title "${title}" and the following description: ${description}\n\n`;
       break;
     case "feature":
-      prompt = `Generate a Feature:\nLong Form: ${longForm}\n\nShort Form: ${shortForm}\n\n`;
+      prompt = `As a ${role}, I want to create a Feature with the title "${title}" and the following description: ${description}\n\n`;
       break;
     case "user-stories":
-      prompt = `Generate User Stories:\nLong Form: ${longForm}\n\nShort Form: ${shortForm}\n\n`;
+      prompt = `As a ${role}, I want to create User Stories with the title "${title}" and the following description: ${description}\n\n`;
       break;
     default:
       return res.status(400).send("Invalid content type.");
@@ -36,7 +37,7 @@ app.get("/generate-content", async (req, res) => {
     const nodeFetch = await import('node-fetch');
     const fetch = nodeFetch.default;
 
-    const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", { // Change model name here
+    const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
