@@ -5,29 +5,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const downloadBtn = document.querySelector("#download");
     const pills = document.querySelectorAll(".pill");
     const errorContainer = document.querySelector("#error-container");
-    const spinnerContainer = document.querySelector("#spinner-container");
     let selectedType = null;
-
-    // Hide the spinner by default
-    spinnerContainer.style.display = "none";
 
     pills.forEach(pill => {
         pill.addEventListener("click", function () {
             pills.forEach(p => p.classList.remove("selected"));
             pill.classList.add("selected");
             selectedType = pill.dataset.type;
-            // Show/hide specific fields based on the selected content type
-            document.querySelectorAll(".form-fields").forEach(el => el.style.display = "none");
-            document.querySelector(`#${selectedType}-fields`).style.display = "block";
-            // Clear any previous error message
-            errorContainer.textContent = "";
         });
     });
 
     submitBtn.addEventListener("click", async function (event) {
         event.preventDefault();
-        // Show the spinner
-        spinnerContainer.style.display = "block";
         if (!selectedType) {
             handleError("Please select a content type (Epic, Feature, User Stories).");
             return;
@@ -35,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const role = document.querySelector("#role").value;
         const title = document.querySelector(`#${selectedType}-title`).value;
-        const description = document.querySelector(`#${selectedType}-description`).value;
+        const description = document.querySelector("#description").value;
 
         try {
             const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?type=${selectedType}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`);
@@ -50,8 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 handleError("Error: Unable to generate content.");
             }
-            // Hide the spinner after the response is received
-            spinnerContainer.style.display = "none";
         } catch (error) {
             handleError("Error fetching ChatGPT:", error);
         }
@@ -82,5 +69,4 @@ function handleError(message, error) {
     errorContainer.textContent = message;
     // Log additional details for debugging purposes.
     console.error("Error details:", error);
-    // You can add additional error handling logic here, such as sending the error details to the server for logging.
 }

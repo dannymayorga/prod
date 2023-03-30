@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
 });
 
 app.get("/generate-content", async (req, res) => {
-  // Extract the values of the new fields from the request query parameters
   const { type, role, title, description } = req.query;
   const apiKey = process.env.CHATGPT_API_KEY;
 
