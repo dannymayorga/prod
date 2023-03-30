@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", function () {
             pills.forEach(p => p.classList.remove("selected"));
             pill.classList.add("selected");
             selectedType = pill.dataset.type;
+            document.querySelectorAll(".form-fields").forEach(el => el.style.display = "none");
+            document.querySelector(`#${selectedType}-fields`).style.display = "block";
+            errorContainer.textContent = "";
         });
     });
 
@@ -24,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const role = document.querySelector("#role").value;
         const title = document.querySelector(`#${selectedType}-title`).value;
-        const description = document.querySelector("#description").value;
+        const description = document.querySelector("#description").value; // Updated line
 
         try {
             const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?type=${selectedType}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`);
@@ -35,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (data.choices && data.choices.length > 0) {
                 const aiGeneratedContent = data.choices[0].text;
                 outputPane.innerHTML = aiGeneratedContent;
-                errorContainer.textContent = ""; // Clear any previous error message
+                errorContainer.textContent = "";
             } else {
                 handleError("Error: Unable to generate content.");
             }
@@ -64,9 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function handleError(message, error) {
     console.error(message, error);
-    // Display an error message to the user.
     const errorContainer = document.querySelector("#error-container");
     errorContainer.textContent = message;
-    // Log additional details for debugging purposes.
     console.error("Error details:", error);
 }
