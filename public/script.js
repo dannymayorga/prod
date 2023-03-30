@@ -5,7 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const downloadBtn = document.querySelector("#download");
     const pills = document.querySelectorAll(".pill");
     const errorContainer = document.querySelector("#error-container");
+    const spinnerContainer = document.querySelector("#spinner-container");
     let selectedType = null;
+
+    // Hide the spinner by default
+    spinnerContainer.style.display = "none";
 
     pills.forEach(pill => {
         pill.addEventListener("click", function () {
@@ -23,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     submitBtn.addEventListener("click", async function (event) {
         event.preventDefault();
         // Show the spinner
-        document.querySelector("#spinner-container").style.display = "block";
+        spinnerContainer.style.display = "block";
         if (!selectedType) {
             handleError("Please select a content type (Epic, Feature, User Stories).");
             return;
@@ -31,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const role = document.querySelector("#role").value;
         const title = document.querySelector(`#${selectedType}-title`).value;
-        const description = document.querySelector(`#${selectedType}-description`).value; // Corrected ID
+        const description = document.querySelector(`#${selectedType}-description`).value;
 
         try {
             const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?type=${selectedType}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`);
@@ -47,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 handleError("Error: Unable to generate content.");
             }
             // Hide the spinner after the response is received
-            document.querySelector("#spinner-container").style.display = "none";
+            spinnerContainer.style.display = "none";
         } catch (error) {
             handleError("Error fetching ChatGPT:", error);
         }
