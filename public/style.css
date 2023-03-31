@@ -10,6 +10,11 @@ body {
     margin: 0 auto;
 }
 
+.wide-card {
+    width: 80%; /* Adjust this value to set the desired width */
+    margin: 0 auto; /* Center the card horizontally */
+}
+
 /* Navigation bar */
 nav {
     display: flex;

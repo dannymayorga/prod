@@ -27,17 +27,26 @@
             </div>
             <!-- Additional content and form fields will be dynamically added based on the selected template -->
             <div id="dynamic-content"></div>
-            <div class="output-container">
-                <h2>AI Generated Content:</h2>
-                <div id="ai-generated-content"></div>
-                <!-- Progress icon -->
-                <!--<div id="progress-icon" class="mdl-spinner mdl-js-spinner is-active" style="display:none;"></div>-->
-                <div id="progress-container" style="display: none;">
-                    <div class="circular-progress"></div>
+            <div class="mdl-card mdl-shadow--2dp wide-card">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text">AI Generated Content:</h2>
+                    <button id="toggle-content" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                        Show/Hide Content
+                    </button>
                 </div>
-                <button id="download" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Download</button>
-                <button id="delete" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>
-            </div>            
+                <div class="mdl-card__supporting-text" id="ai-generated-content" style="display: none;">
+                    <!-- AI Generated Content will be displayed here -->
+                </div>
+                <div class="mdl-card__actions mdl-card--border">
+                    <button id="download" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Download
+                    </button>
+                    <button id="delete" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Delete
+                    </button>
+                </div>
+            </div>
+                                  
             <!-- Error container to display error messages to the user -->
             <div id="error-container" class="error-container"></div>
         </div>

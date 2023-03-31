@@ -74,6 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
         outputPane.innerHTML = "";
     });
 
+    document.getElementById('toggle-content').addEventListener('click', function() {
+        var aiGeneratedContent = document.getElementById('ai-generated-content');
+        if (aiGeneratedContent.style.display === 'none') {
+            aiGeneratedContent.style.display = 'block';
+        } else {
+            aiGeneratedContent.style.display = 'none';
+        }
+    });
+    
+
     downloadBtn.addEventListener("click", function () {
         const content = outputPane.innerHTML;
         if (content) {
@@ -97,6 +107,17 @@ function handleError(message, error) {
     console.error("Error details:", error);
     // You can add additional error handling logic here, such as sending the error details to the server for logging.
 }
+
+try {
+    // Code to generate the feature
+    // ...
+  } catch (error) {
+    // Error handling code
+    console.error("Error details:", error);
+    // Additional error handling logic
+    // ...
+  }
+
 // Construct the prompt for the AI based on the selected template and field values
 function constructPrompt(template, fieldValues) {
     let prompt = "";
