@@ -104,8 +104,15 @@ function constructPrompt(template, fieldValues) {
         case "epic":
             prompt = `Create an Epic:\nSupporting Theme: ${fieldValues.supportingTheme || '[AI recommend]'}\nEpic Name: ${fieldValues.epicName || '[AI recommend]'}\nDescription: ${fieldValues.description || '[AI recommend]'}\nAcceptance Criteria: ${fieldValues.acceptanceCriteria || '[AI recommend]'}\nMetrics: ${fieldValues.metrics || '[AI recommend]'}\nAdditional Notes: ${fieldValues.additionalNotes || '[AI recommend]'}\nOpen Questions: ${fieldValues.openQuestions || '[AI recommend]'}\n\nPlease provide the following:\n1. Detailed Epic description\n2. Acceptance Criteria\n3. Metrics\n4. Additional Notes\n5. Open Questions`;
             break;
-        // Similar prompt construction logic for other templates (feature, user-story, editor)
-        // ...
+        case "feature":
+            prompt = `Create a Feature:\nFeature Name / Title: ${fieldValues.featureName || '[AI recommend]'}\nPriority: ${fieldValues.priority || '[AI recommend]'}\nBusiness Reason: ${fieldValues.businessReason || '[AI recommend]'}\nGoals and Objectives: ${fieldValues.goalsAndObjectives || '[AI recommend]'}\nMetrics: ${fieldValues.metrics || '[AI recommend]'}\nPrimary User / Stakeholder: ${fieldValues.primaryUser || '[AI recommend]'}\nTimeline: ${fieldValues.timeline || '[AI recommend]'}\nDescription: ${fieldValues.description || '[AI recommend]'}\nUse Cases: ${fieldValues.useCases || '[AI recommend]'}\nSecurity: ${fieldValues.security || '[AI recommend]'}\nCompliance: ${fieldValues.compliance || '[AI recommend]'}\nPerformance / Reliability: ${fieldValues.performance || '[AI recommend]'}\nDependencies: ${fieldValues.dependencies || '[AI recommend]'}\n\nPlease provide the following:\n1. Detailed Feature description\n2. Goals and Objectives\n3. Use Cases\n4. Security, Compliance, Performance considerations\n5. Dependencies.`;
+            break;
+        case "user-story":
+            prompt = `Create a User Story:\nTitle: ${fieldValues.title || '[AI recommend]'}\nPriority: ${fieldValues.priority || '[AI recommend]'}\nAcceptance Criteria: ${fieldValues.acceptanceCriteria || '[AI recommend]'}\n\nPlease provide the following:\n1. User Story Title\n2. Acceptance Criteria.`;
+            break;
+        case "editor":
+            prompt = `Edit Content:\nDescription: ${fieldValues.description || '[AI recommend]'}\nKeywords: ${fieldValues.keywords || '[AI recommend]'}\nInput Language: ${fieldValues.inputLanguage || 'English'}\nOutput Language: ${fieldValues.outputLanguage || 'English'}\nTone: ${fieldValues.tone || '[AI recommend]'}\nFormality: ${fieldValues.formality || '[AI recommend]'}\n\nPlease provide the following:\n1. Edited content based on the given information and preferences.`;
+            break;
     }
     return prompt;
 }
