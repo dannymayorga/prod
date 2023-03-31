@@ -7,12 +7,15 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
 app.post('/generate-content', async (req, res) => {
   const prompt = req.body.prompt;
 
   try {
     // Replace with your ChatGPT API URL
-    const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
+    const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
     // Use the environment variable for the API key
     const apiKey = process.env.CHATGPT_API_KEY;
 
