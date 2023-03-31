@@ -18,6 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
             errorContainer.textContent = "";
         });
     });
+
+    dynamicContent.addEventListener("click", async function (event) {
+        if (event.target.id === "submit") {
+            event.preventDefault();
+            // Show progress icon
+            document.getElementById("progress-container").style.display = "block";
+            // ... (rest of the code for content generation)
+            // Hide progress icon after content generation is done
+            document.getElementById("progress-container").style.display = "none";
+        }
+    });
+
     dynamicContent.addEventListener("click", async function (event) {
         if (event.target.id === "submit") {
             event.preventDefault();
@@ -85,103 +97,6 @@ function handleError(message, error) {
     console.error("Error details:", error);
     // You can add additional error handling logic here, such as sending the error details to the server for logging.
 }
-// Generate form fields based on the selected template
-function generateFormFields(template) {
-    let formFields = '';
-    switch (template) {
-        case 'epic':
-            formFields = `
-                <form>
-                    <label>Supporting Theme:</label>
-                    <input type="text" class="field" name="supportingTheme" placeholder="AI can recommend">
-                    <label>Epic Name:</label>
-                    <input type="text" class="field" name="epicName" placeholder="AI can recommend">
-                    <label>Description:</label>
-                    <textarea class="field" name="description" placeholder="AI can recommend"></textarea>
-                    <label>Acceptance Criteria:</label>
-                    <textarea class="field" name="acceptanceCriteria" placeholder="AI can recommend"></textarea>
-                    <label>Metrics:</label>
-                    <textarea class="field" name="metrics" placeholder="AI can recommend"></textarea>
-                    <label>Additional Notes:</label>
-                    <textarea class="field" name="additionalNotes" placeholder="AI can recommend"></textarea>
-                    <label>Open Questions:</label>
-                    <textarea class="field" name="openQuestions" placeholder="AI can recommend"></textarea>
-                    <button id="submit">Generate Content</button>
-                </form>
-            `;
-            break;
-        case 'feature':
-            formFields = `
-                <form>
-                    <label>Feature Name / Title:</label>
-                    <input type="text" class="field" name="featureName" placeholder="AI can recommend">
-                    <label>Priority:</label>
-                    <input type="text" class="field" name="priority" placeholder="AI can recommend">
-                    <label>Business Reason:</label>
-                    <textarea class="field" name="businessReason" placeholder="AI can recommend"></textarea>
-                    <label>Goals and Objectives:</label>
-                    <textarea class="field" name="goalsAndObjectives" placeholder="AI can recommend"></textarea>
-                    <label>Metrics:</label>
-                    <textarea class="field" name="metrics" placeholder="AI can recommend"></textarea>
-                    <label>Primary User / Stakeholder:</label>
-                    <input type="text" class="field" name="primaryUser" placeholder="AI can recommend">
-                    <label>Timeline:</label>
-                    <input type="text" class="field" name="timeline" placeholder="AI can recommend">
-                    <label>Description:</label>
-                    <textarea class="field" name="description" placeholder="AI can recommend"></textarea>
-                    <label>Use Cases:</label>
-                    <textarea class="field" name="useCases" placeholder="AI can recommend"></textarea>
-                    <label>Security:</label>
-                    <textarea class="field" name="security" placeholder="AI can recommend"></textarea>
-                    <label>Compliance:</label>
-                    <textarea class="field" name="compliance" placeholder="AI can recommend"></textarea>
-                    <label>Performance / Reliability:</label>
-                    <textarea class="field" name="performance" placeholder="AI can recommend"></textarea>
-                    <label>Dependencies:</label>
-                    <textarea class="field" name="dependencies" placeholder="AI can recommend"></textarea>
-                    <button id="submit">Generate Content</button>
-                </form>
-            `;
-            break;
-        case 'user-story':
-            formFields = `
-                <form>
-                    <label>Title:</label>
-                    <input type="text" class="field" name="title" placeholder="AI can recommend">
-                    <label>Priority:</label>
-                    <input type="text" class="field" name="priority" placeholder="AI can recommend">
-                    <label>Acceptance Criteria:</label>
-                    <textarea class="field" name="acceptanceCriteria" placeholder="AI can recommend"></textarea>
-                    <button id="submit">Generate Content</button>
-                </form>
-            `;
-            break;
-        case 'editor':
-            formFields = `
-                <form>
-                    <label>Description:</label>
-                    <textarea class="field" name="description" placeholder="AI can recommend"></textarea>
-                    <label>Keywords:</label>
-                    <input type="text" class="field" name="keywords" placeholder="AI can recommend">
-                    <label>Input Language:</label>
-                    <input type="text" class="field" name="inputLanguage" placeholder="English">
-                    <label>Output Language:</label>
-                    <input type="text" class="field" name="outputLanguage" placeholder="English">
-                    <label>Tone:</label>
-                    <input type="text" class="field" name="tone" placeholder="AI can recommend">
-                    <label>Formality:</label>
-                    <input type="text" class="field" name="formality" placeholder="AI can recommend">
-                    <button id="submit">Generate Content</button>
-                </form>
-            `;
-            break;
-        default:
-            formFields = 'Please select a valid template.';
-            break;
-    }
-    return formFields;
-}
-
 // Construct the prompt for the AI based on the selected template and field values
 function constructPrompt(template, fieldValues) {
     let prompt = "";
@@ -200,101 +115,146 @@ function generateFormFields(template) {
     switch (template) {
         case 'epic':
             formFields = `
-                <form id="epic-fields" class="form-fields">
-                    <label>Supporting Theme:</label>
-                    <input type="text" class="field" name="supportingTheme">
-                    <label>Epic Name:</label>
-                    <input type="text" class="field" name="epicName">
-                    <label>Description:</label>
-                    <textarea class="field" name="description"></textarea>
-                    <label>Acceptance Criteria:</label>
-                    <textarea class="field" name="acceptanceCriteria"></textarea>
-                    <label>Metrics:</label>
-                    <input type="text" class="field" name="metrics">
-                    <label>Additional Notes:</label>
-                    <textarea class="field" name="additionalNotes"></textarea>
-                    <label>Open Questions:</label>
-                    <textarea class="field" name="openQuestions"></textarea>
-                </form>
-                <button id="submit">Generate Content</button>
+                <form class="form-container">
+                    <div class="form-group">
+                    <label for="supportingTheme">Supporting Theme:</label>
+                    <input type="text" class="field" name="supportingTheme" id="supportingTheme" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="epicName">Epic Name:</label>
+                    <input type="text" class="field" name="epicName" id="epicName" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="field" name="description" id="description" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="acceptanceCriteria">Acceptance Criteria:</label>
+                    <textarea class="field" name="acceptanceCriteria" id="acceptanceCriteria" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="metrics">Metrics:</label>
+                    <textarea class="field" name="metrics" id="metrics" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="additionalNotes">Additional Notes:</label>
+                    <textarea class="field" name="additionalNotes" id="additionalNotes" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="openQuestions">Open Questions:</label>
+                    <textarea class="field" name="openQuestions" id="openQuestions" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <button id="submit">Generate Content</button>
+                </form>              
             `;
             break;
         case 'feature':
             formFields = `
-                <form id="feature-fields" class="form-fields">
-                    <label>Feature Name / Title:</label>
-                    <input type="text" class="field" name="featureName">
-                    <label>Priority:</label>
-                    <input type="text" class="field" name="priority">
-                    <label>Business Reason:</label>
-                    <textarea class="field" name="businessReason"></textarea>
-                    <label>Goals and Objectives:</label>
-                    <textarea class="field" name="goalsAndObjectives"></textarea>
-                    <label>Metrics:</label>
-                    <input type="text" class="field" name="metrics">
-                    <label>Primary User / Stakeholder:</label>
-                    <input type="text" class="field" name="primaryUser">
-                    <label>Timeline:</label>
-                    <input type="text" class="field" name="timeline">
-                    <label>Description:</label>
-                    <textarea class="field" name="description"></textarea>
-                    <label>Use Cases:</label>
-                    <textarea class="field" name="useCases"></textarea>
-                    <label>Security:</label>
-                    <textarea class="field" name="security"></textarea>
-                    <label>Compliance:</label>
-                    <textarea class="field" name="compliance"></textarea>
-                    <label>Performance / Reliability:</label>
-                    <textarea class="field" name="performance"></textarea>
-                    <label>Dependencies:</label>
-                    <textarea class="field" name="dependencies"></textarea>
+                <form class="form-container">
+                    <div class="form-group">
+                    <label for="featureName">Feature Name / Title:</label>
+                    <input type="text" class="field" name="featureName" id="featureName" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <input type="text" class="field" name="priority" id="priority" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="businessReason">Business Reason:</label>
+                    <textarea class="field" name="businessReason" id="businessReason" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="goalsAndObjectives">Goals and Objectives:</label>
+                    <textarea class="field" name="goalsAndObjectives" id="goalsAndObjectives" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="metrics">Metrics:</label>
+                    <textarea class="field" name="metrics" id="metrics" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="primaryUser">Primary User / Stakeholder:</label>
+                    <input type="text" class="field" name="primaryUser" id="primaryUser" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="timeline">Timeline:</label>
+                    <input type="text" class="field" name="timeline" id="timeline" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea class="field" name="description" id="description" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="useCases">Use Cases:</label>
+                    <textarea class="field" name="useCases" id="useCases" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="security">Security:</label>
+                    <textarea class="field" name="security" id="security" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="compliance">Compliance:</label>
+                    <textarea class="field" name="compliance" id="compliance" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="performance">Performance / Reliability:</label>
+                    <textarea class="field" name="performance" id="performance" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <div class="form-group">
+                    <label for="dependencies">Dependencies:</label>
+                    <textarea class="field" name="dependencies" id="dependencies" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <button id="submit">Generate Content</button>
                 </form>
-                <button id="submit">Generate Content</button>
             `;
             break;
         case 'user-story':
             formFields = `
-                <form id="user-story-fields" class="form-fields">
-                    <label>Title:</label>
-                    <input type="text" class="field" name="title">
-                    <label>Priority:</label>
-                    <input type="text" class="field" name="priority">
-                    <label>Acceptance Criteria:</label>
-                    <textarea class="field" name="acceptanceCriteria"></textarea>
+                <form class="form-container">
+                    <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" class="field" name="title" id="title" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="priority">Priority:</label>
+                    <input type="text" class="field" name="priority" id="priority" placeholder="AI can recommend">
+                    </div>
+                    <div class="form-group">
+                    <label for="acceptanceCriteria">Acceptance Criteria:</label>
+                    <textarea class="field" name="acceptanceCriteria" id="acceptanceCriteria" placeholder="AI can recommend"></textarea>
+                    </div>
+                    <button id="submit">Generate Content</button>
                 </form>
-                <button id="submit">Generate Content</button>
             `;
             break;
         case 'editor':
         formFields = `
-            <form id="editor-fields" class="form-fields">
-                <label>Content Type:</label>
-                <select class="field" name="contentType">
-                    <option value="epic">Epic</option>
-                    <option value="feature">Feature</option>
-                    <option value="user-story">User Story</option>
-                    <option value="generic">Generic</option>
-                </select>
-                <label>Description:</label>
-                <textarea class="field" name="description"></textarea>
-                <label>Keywords:</label>
-                <input type="text" class="field" name="keywords">
-                <label>Input Language:</label>
-                <select class="field" name="inputLanguage">
-                    <option value="english">English</option>
-                    <option value="spanish">Spanish</option>
-                </select>
-                <label>Output Language:</label>
-                <select class="field" name="outputLanguage">
-                    <option value="english">English</option>
-                    <option value="spanish">Spanish</option>
-                </select>
-                <label>Tone:</label>
-                <input type="text" class="field" name="tone">
-                <label>Formality:</label>
-                <input type="text" class="field" name="formality">
+            <form class="form-container">
+                <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="field" name="description" id="description" placeholder="AI can recommend"></textarea>
+                </div>
+                <div class="form-group">
+                <label for="keywords">Keywords:</label>
+                <input type="text" class="field" name="keywords" id="keywords" placeholder="AI can recommend">
+                </div>
+                <div class="form-group">
+                <label for="inputLanguage">Input Language:</label>
+                <input type="text" class="field" name="inputLanguage" id="inputLanguage" placeholder="English">
+                </div>
+                <div class="form-group">
+                <label for="outputLanguage">Output Language:</label>
+                <input type="text" class="field" name="outputLanguage" id="outputLanguage" placeholder="English">
+                </div>
+                <div class="form-group">
+                <label for="tone">Tone:</label>
+                <input type="text" class="field" name="tone" id="tone" placeholder="AI can recommend">
+                </div>
+                <div class="form-group">
+                <label for="formality">Formality:</label>
+                <input type="text" class="field" name="formality" id="formality" placeholder="AI can recommend">
+                </div>
+                <button id="submit">Generate Content</button>
             </form>
-            <button id="submit">Generate Content</button>
         `;
         break; 
     }

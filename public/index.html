@@ -20,19 +20,24 @@
             <p class="intro-text">[Name], what product are we building today?</p>
             <p class="subtext">Start by selecting the template type below</p>
             <div class="template-container">
-                <button class="template-btn" data-type="epic">Epic</button>
-                <button class="template-btn" data-type="feature">Feature</button>
-                <button class="template-btn" data-type="user-story">User Story</button>
-                <button class="template-btn" data-type="editor">Editor</button>
+                <button class="template-btn" data-template="epic">Epic</button>
+                <button class="template-btn" data-template="feature">Feature</button>
+                <button class="template-btn" data-template="user-story">User Story</button>
+                <button class="template-btn" data-template="editor">Editor</button>
             </div>
             <!-- Additional content and form fields will be dynamically added based on the selected template -->
             <div id="dynamic-content"></div>
             <div class="output-container">
                 <h2>AI Generated Content:</h2>
                 <div id="ai-generated-content"></div>
-                <button id="download">Download</button>
-                <button id="delete">Delete</button>
-            </div>
+                <!-- Progress icon -->
+                <!--<div id="progress-icon" class="mdl-spinner mdl-js-spinner is-active" style="display:none;"></div>-->
+                <div id="progress-container" style="display: none;">
+                    <div class="circular-progress"></div>
+                </div>
+                <button id="download" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Download</button>
+                <button id="delete" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete</button>
+            </div>            
             <!-- Error container to display error messages to the user -->
             <div id="error-container" class="error-container"></div>
         </div>
