@@ -14,6 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/generate-content", async (req, res) => {
+  // Extract the values of the new fields from the request query parameters
   const { type, role, title, description } = req.query;
   const apiKey = process.env.CHATGPT_API_KEY;
 
@@ -25,8 +26,11 @@ app.get("/generate-content", async (req, res) => {
     case "feature":
       prompt = `As a ${role}, I want to create a Feature with the title "${title}" and the following description: ${description}\n\n`;
       break;
-    case "user-stories":
+    case "user-story":
       prompt = `As a ${role}, I want to create User Stories with the title "${title}" and the following description: ${description}\n\n`;
+      break;
+    case "editor":
+      prompt = `${description}\n\n`;
       break;
     default:
       return res.status(400).send("Invalid content type.");
@@ -45,7 +49,7 @@ app.get("/generate-content", async (req, res) => {
       body: JSON.stringify({
         prompt: prompt,
         max_tokens: 100,
-        n: 1,
+        n: 3, // Generate 3 different options
         stop: null,
         temperature: 1,
       }),
