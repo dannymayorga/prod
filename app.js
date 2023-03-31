@@ -15,7 +15,7 @@ app.post('/generate-content', async (req, res) => {
 
   try {
     // Replace with your ChatGPT API URL
-    const apiUrl = 'https://api.openai.com/v1/engines/davinci-codex/completions';
+    const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
     // Use the environment variable for the API key
     const apiKey = process.env.CHATGPT_API_KEY;
 
