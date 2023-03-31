@@ -87,19 +87,98 @@ function handleError(message, error) {
 }
 // Generate form fields based on the selected template
 function generateFormFields(template) {
-    // Add form fields based on the selected template
-    // The form fields will vary based on the template selected by the user
-    // For simplicity, we'll use a basic form structure here
-    let formFields = `
-        <form>
-            <label>Title:</label>
-            <input type="text" class="field" name="title">
-            <label>Description:</label>
-            <textarea class="field" name="description"></textarea>
-            <!-- Additional fields specific to the selected template can be added here -->
-        </form>
-        <button id="submit">Generate Content</button>
-    `;
+    let formFields = '';
+    switch (template) {
+        case 'epic':
+            formFields = `
+                <form>
+                    <label>Supporting Theme:</label>
+                    <input type="text" class="field" name="supportingTheme" placeholder="AI can recommend">
+                    <label>Epic Name:</label>
+                    <input type="text" class="field" name="epicName" placeholder="AI can recommend">
+                    <label>Description:</label>
+                    <textarea class="field" name="description" placeholder="AI can recommend"></textarea>
+                    <label>Acceptance Criteria:</label>
+                    <textarea class="field" name="acceptanceCriteria" placeholder="AI can recommend"></textarea>
+                    <label>Metrics:</label>
+                    <textarea class="field" name="metrics" placeholder="AI can recommend"></textarea>
+                    <label>Additional Notes:</label>
+                    <textarea class="field" name="additionalNotes" placeholder="AI can recommend"></textarea>
+                    <label>Open Questions:</label>
+                    <textarea class="field" name="openQuestions" placeholder="AI can recommend"></textarea>
+                    <button id="submit">Generate Content</button>
+                </form>
+            `;
+            break;
+        case 'feature':
+            formFields = `
+                <form>
+                    <label>Feature Name / Title:</label>
+                    <input type="text" class="field" name="featureName" placeholder="AI can recommend">
+                    <label>Priority:</label>
+                    <input type="text" class="field" name="priority" placeholder="AI can recommend">
+                    <label>Business Reason:</label>
+                    <textarea class="field" name="businessReason" placeholder="AI can recommend"></textarea>
+                    <label>Goals and Objectives:</label>
+                    <textarea class="field" name="goalsAndObjectives" placeholder="AI can recommend"></textarea>
+                    <label>Metrics:</label>
+                    <textarea class="field" name="metrics" placeholder="AI can recommend"></textarea>
+                    <label>Primary User / Stakeholder:</label>
+                    <input type="text" class="field" name="primaryUser" placeholder="AI can recommend">
+                    <label>Timeline:</label>
+                    <input type="text" class="field" name="timeline" placeholder="AI can recommend">
+                    <label>Description:</label>
+                    <textarea class="field" name="description" placeholder="AI can recommend"></textarea>
+                    <label>Use Cases:</label>
+                    <textarea class="field" name="useCases" placeholder="AI can recommend"></textarea>
+                    <label>Security:</label>
+                    <textarea class="field" name="security" placeholder="AI can recommend"></textarea>
+                    <label>Compliance:</label>
+                    <textarea class="field" name="compliance" placeholder="AI can recommend"></textarea>
+                    <label>Performance / Reliability:</label>
+                    <textarea class="field" name="performance" placeholder="AI can recommend"></textarea>
+                    <label>Dependencies:</label>
+                    <textarea class="field" name="dependencies" placeholder="AI can recommend"></textarea>
+                    <button id="submit">Generate Content</button>
+                </form>
+            `;
+            break;
+        case 'user-story':
+            formFields = `
+                <form>
+                    <label>Title:</label>
+                    <input type="text" class="field" name="title" placeholder="AI can recommend">
+                    <label>Priority:</label>
+                    <input type="text" class="field" name="priority" placeholder="AI can recommend">
+                    <label>Acceptance Criteria:</label>
+                    <textarea class="field" name="acceptanceCriteria" placeholder="AI can recommend"></textarea>
+                    <button id="submit">Generate Content</button>
+                </form>
+            `;
+            break;
+        case 'editor':
+            formFields = `
+                <form>
+                    <label>Description:</label>
+                    <textarea class="field" name="description" placeholder="AI can recommend"></textarea>
+                    <label>Keywords:</label>
+                    <input type="text" class="field" name="keywords" placeholder="AI can recommend">
+                    <label>Input Language:</label>
+                    <input type="text" class="field" name="inputLanguage" placeholder="English">
+                    <label>Output Language:</label>
+                    <input type="text" class="field" name="outputLanguage" placeholder="English">
+                    <label>Tone:</label>
+                    <input type="text" class="field" name="tone" placeholder="AI can recommend">
+                    <label>Formality:</label>
+                    <input type="text" class="field" name="formality" placeholder="AI can recommend">
+                    <button id="submit">Generate Content</button>
+                </form>
+            `;
+            break;
+        default:
+            formFields = 'Please select a valid template.';
+            break;
+    }
     return formFields;
 }
 
@@ -289,4 +368,3 @@ function constructPrompt(template, fieldValues) {
     }
     return prompt;
 }
-
