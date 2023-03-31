@@ -4,38 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Content Generator</title>
+    <!-- Material Design Lite CSS and Material Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Your custom CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>AI Content Generator</h1>
-        <div class="pill-container">
-            <button class="pill" data-type="epic">Epic</button>
-            <button class="pill" data-type="feature">Feature</button>
-            <button class="pill" data-type="user-stories">User Stories</button>
+        <nav>
+            <a href="#" class="nav-item" id="home-link">Home</a>
+        </nav>
+        <div id="dashboard-container">
+            <h1>AI Content Generator</h1>
+            <p class="intro-text">[Name], what product are we building today?</p>
+            <p class="subtext">Start by selecting the template type below</p>
+            <div class="template-container">
+                <button class="template-btn" data-type="epic">Epic</button>
+                <button class="template-btn" data-type="feature">Feature</button>
+                <button class="template-btn" data-type="user-story">User Story</button>
+                <button class="template-btn" data-type="editor">Editor</button>
+            </div>
+            <!-- Additional content and form fields will be dynamically added based on the selected template -->
+            <div id="dynamic-content"></div>
+            <div class="output-container">
+                <h2>AI Generated Content:</h2>
+                <div id="ai-generated-content"></div>
+                <button id="download">Download</button>
+                <button id="delete">Delete</button>
+            </div>
+            <!-- Error container to display error messages to the user -->
+            <div id="error-container" class="error-container"></div>
         </div>
-        <div class="form-container">
-            <label for="role">Role:</label>
-            <select id="role">
-                <option value="" disabled selected>Select your role</option>
-                <option value="Product Manager">Product Manager</option>
-                <option value="Product Owner">Product Owner</option>
-                <option value="Business Analyst">Business Analyst</option>
-            </select>
-            <label for="title">Title:</label>
-            <input type="text" id="title" placeholder="Title">
-            <label for="description">Description:</label>
-            <textarea id="description" placeholder="Provide a detailed description"></textarea>
-            <button id="submit">Generate Content</button>
-        </div>
-        <div class="output-container">
-            <h2>AI Generated Content:</h2>
-            <div id="ai-generated-content"></div>
-            <button id="download">Download</button>
-            <button id="delete">Delete</button>
-        </div>
-        <div id="error-container" class="error-container"></div>
     </div>
+    <!-- Material Design Lite JavaScript -->
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

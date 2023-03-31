@@ -3,34 +3,39 @@ document.addEventListener("DOMContentLoaded", function () {
     const outputPane = document.querySelector("#ai-generated-content");
     const deleteBtn = document.querySelector("#delete");
     const downloadBtn = document.querySelector("#download");
-    const pills = document.querySelectorAll(".pill");
+    const templateBtns = document.querySelectorAll(".template-btn");
     const errorContainer = document.querySelector("#error-container");
-    let selectedType = null;
+    let selectedTemplate = null;
 
-    pills.forEach(pill => {
-        pill.addEventListener("click", function () {
-            pills.forEach(p => p.classList.remove("selected"));
-            pill.classList.add("selected");
-            selectedType = pill.dataset.type;
+    templateBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            templateBtns.forEach(b => b.classList.remove("selected"));
+            btn.classList.add("selected");
+            selectedTemplate = btn.dataset.template;
+            // Show/hide specific fields based on the selected template
             document.querySelectorAll(".form-fields").forEach(el => el.style.display = "none");
-            document.querySelector(`#${selectedType}-fields`).style.display = "block";
+            document.querySelector(`#${selectedTemplate}-fields`).style.display = "block";
+            // Clear any previous error message
             errorContainer.textContent = "";
         });
     });
 
     submitBtn.addEventListener("click", async function (event) {
         event.preventDefault();
-        if (!selectedType) {
-            handleError("Please select a content type (Epic, Feature, User Stories).");
+        if (!selectedTemplate) {
+            handleError("Please select a template (Epic, Feature, User Story, Editor).");
             return;
         }
 
-        const role = document.querySelector("#role").value;
-        const title = document.querySelector(`#${selectedType}-title`).value;
-        const description = document.querySelector("#description").value; // Updated line
+        // Collect field values based on the selected template
+        const fieldValues = {};
+        const fields = document.querySelectorAll(`#${selectedTemplate}-fields .field`);
+        fields.forEach(field => {
+            fieldValues[field.name] = field.value;
+        });
 
         try {
-            const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?type=${selectedType}&role=${encodeURIComponent(role)}&title=${encodeURIComponent(title)}&description=${encodeURIComponent(description)}`);
+            const response = await fetch(`https://prod-ai-1.herokuapp.com/generate-content?template=${selectedTemplate}&fields=${encodeURIComponent(JSON.stringify(fieldValues))}`);
 
             const data = await response.json();
             if (data.error) {
@@ -38,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (data.choices && data.choices.length > 0) {
                 const aiGeneratedContent = data.choices[0].text;
                 outputPane.innerHTML = aiGeneratedContent;
-                errorContainer.textContent = "";
+                errorContainer.textContent = ""; // Clear any previous error message
             } else {
                 handleError("Error: Unable to generate content.");
             }
@@ -67,7 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function handleError(message, error) {
     console.error(message, error);
+    // Display an error message to the user.
     const errorContainer = document.querySelector("#error-container");
     errorContainer.textContent = message;
+    // Log additional details for debugging purposes.
     console.error("Error details:", error);
+    // You can add additional error handling logic here, such as sending the error details to the server for logging.
 }
